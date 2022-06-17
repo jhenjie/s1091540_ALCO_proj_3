@@ -1,0 +1,27 @@
+1.struct Inst代表輸入的istruction，包含issued(是否已被issue)、I(完整的istruction)、N(istruction的名稱)、D(目標register)、S1(來源register)、S2(來源register)。
+
+2.struct RS_Inst代表RS裡的instruction，1l 包含order(優先順序)、O(運算子)、s1(運算元)、s2(運算元)。
+
+3.class RF代表register file，RF()初始化RF裡的資料，print_all()印出所有RF裡的資料，get_RFs()取得RF裡的資料，set_RFs()更改RF裡的資料，資料存在vector<string> RFs。
+
+4.class RAT代表register allocation table，RAT()初始化RAT裡的資料，print_all()印出所有RAT裡的資料，get_RATs()取得RAT裡的資料，set_RATs()更改RF裡的資料，empty()判斷RAT是否為空，資料存在vector<string> RATs。
+
+5.class RS代表reservation station，RS()初始化RS裡的資料，print_all()印出所有RS裡的資料，left_not_full()判斷加減buffer是否為空，right_not_full()判斷乘除buffer是否為空，get_RSs()取得RS裡的資料，set_RSs()更改RS裡的資料，set_RSs_1更改RS裡的來源register，set_RSs_2更改RS裡的來源register，get_Buffers()取得buffer裡的資料，set_Buffers()更改buffer裡的資料，change_order()更改優先順序，empty()判斷RS是否為空，資料存在vector<RS_Inst> RSs、vector<string> Buffers。
+
+6.程式執行順序：
+
+宣告IQ，輸入instruction
+宣告register_file、register_allocation_table、reservation_station
+進入while迴圈，cycle+1，所有RS裡的優先順序+1
+尋找還沒issue的instruction
+判斷instruction的類型
+將instruction放入RS
+更新RAT
+
+找出最小優先順序的instruction
+將該instruction放到buffer(dispatch)
+若沒有能放入的instruction
+則所有instruction優先順序-1
+
+計算instruction，將結果broadcast
+印出當前cycle的狀態
